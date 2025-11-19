@@ -1,0 +1,179 @@
+:root {
+    --accent: #61593c;
+    /* Habeeb accent */
+    --gold: #d4af37;
+    --dark: #0b1320;
+}
+
+body {
+    font-family: 'Inter', system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial;
+    color: #222;
+}
+
+.brand {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.35rem;
+    letter-spacing: 1px
+}
+
+/* hero */
+.hero {
+    min-height: 78vh;
+    background-image: linear-gradient(90deg, rgba(11, 19, 32, 0.45), rgba(11, 19, 32, 0.25)), url('https://images.unsplash.com/photo-1501117716987-c8e0f7b327f2?auto=format&fit=crop&w=1800&q=80');
+    background-size: cover;
+    background-position: center;
+    color: #fff;
+    display: flex;
+    align-items: center;
+    position: relative;
+    padding: 4rem 0;
+}
+
+.glass {
+    background: rgba(255, 255, 255, 0.06);
+    backdrop-filter: blur(6px);
+    border-radius: 12px;
+    padding: 1.25rem;
+}
+
+.feature-icon {
+    font-size: 1.6rem;
+    color: var(--gold)
+}
+
+.room-card {
+    border-radius: 14px;
+    overflow: hidden;
+    box-shadow: 0 8px 30px rgba(2, 12, 27, 0.25)
+}
+
+.amenity {
+    font-size: 1rem
+}
+
+.gallery img {
+    height: 220px;
+    object-fit: cover;
+    width: 100%;
+    border-radius: 8px
+}
+
+.footer {
+    background: #9a9da5;
+    color: #cbd5e1
+}
+
+.cta {
+    background: linear-gradient(90deg, var(--accent), #3b82f6);
+    color: white
+}
+
+/* Lightbox styles */
+.carousel-img {
+    height: 320px;
+    object-fit: cover;
+    cursor: pointer;
+    transition: transform 0.3s ease;
+}
+
+.carousel-img:hover {
+    transform: scale(1.02);
+}
+
+.lightbox-modal .modal-dialog {
+    max-width: 90vw;
+    max-height: 90vh;
+}
+
+.lightbox-modal .modal-content {
+    background: transparent;
+    border: none;
+}
+
+.lightbox-modal .modal-body {
+    padding: 0;
+    text-align: center;
+}
+
+.lightbox-modal img {
+    max-width: 100%;
+    max-height: 85vh;
+    object-fit: contain;
+}
+
+.lightbox-modal .btn-close {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    background: rgba(0, 0, 0, 0.7);
+    border-radius: 50%;
+    opacity: 1;
+    z-index: 1060;
+}
+
+.lightbox-modal .carousel-control-prev,
+.lightbox-modal .carousel-control-next {
+    width: 50px;
+    height: 50px;
+    background: rgba(0, 0, 0, 0.7);
+    border-radius: 50%;
+    top: 50%;
+    transform: translateY(-50%);
+    margin: 0 20px;
+}
+
+/* Experience and Gallery image styles */
+.experience-img,
+.gallery-img {
+    cursor: pointer;
+    transition: transform 0.3s ease;
+}
+
+.experience-img:hover,
+.gallery-img:hover {
+    transform: scale(1.03);
+}
+
+@media (max-width:720px) {
+    .hero {
+        min-height: 62vh;
+        padding: 3rem 0
+    }
+
+    .lightbox-modal .carousel-control-prev,
+    .lightbox-modal .carousel-control-next {
+        width: 40px;
+        height: 40px;
+        margin: 0 10px;
+    }
+    
+
+ /* optional: small CSS to make the offcanvas act like a full-screen overlay on small devices -->
+<s>
+  Make the offcanvas fill the viewport width on small screens */
+  @media (max-width: 991.98px) {
+    .offcanvas.offcanvas-start {
+      width: 100% !important;
+      max-width: 100% !important;
+    }
+    .offcanvas-header {
+      border-bottom: 1px solid rgba(255,255,255,0.06);
+    }
+    .offcanvas-body a.nav-link { color: #fff; }
+    .btn-toggle {
+      background: transparent;
+      border: none;
+      color: #fff;
+      padding: .5rem 0;
+      font-size: 1.05rem;
+    }
+    .offcanvas .collapse a { color: #f8f9fa; text-decoration: none; }
+  }
+
+  /* larger dropdown menu on desktop (optional) */
+  .dropdown-menu-dark { background-color: #4f4633; border: 0; }
+  .dropdown-menu-dark .dropdown-item { color: #fff; }
+  .dropdown-menu-dark .dropdown-item:hover { background-color: rgba(255,255,255,0.04); }
+
+}
+

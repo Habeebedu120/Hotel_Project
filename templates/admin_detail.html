@@ -1,0 +1,100 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="container py-5">
+  <div class="card shadow-sm border-0">
+    <div class="card-header bg-primary text-white">
+      <h4 class="mb-0">Booking Details — #{{ booking.id }}</h4>
+    </div>
+    <div class="card-body">
+      <dl class="row mb-4">
+        <dt class="col-sm-3 text-muted">Name</dt>
+        <dd class="col-sm-9 fw-semibold">{{ booking.full_name }}</dd>
+
+        <dt class="col-sm-3 text-muted">Email</dt>
+        <dd class="col-sm-9 fw-semibold">{{ booking.email }}</dd>
+
+        <dt class="col-sm-3 text-muted">Phone</dt>
+        <dd class="col-sm-9 fw-semibold">{{ booking.phone }}</dd>
+
+        <dt class="col-sm-3 text-muted">Suite</dt>
+        <dd class="col-sm-9 fw-semibold">{{ booking.room_type.name if booking.room_type else 'N/A' }}</dd>
+
+        <dt class="col-sm-3 text-muted">Check-in</dt>
+        <dd class="col-sm-9 fw-semibold">{{ booking.checkin }}</dd>
+
+        <dt class="col-sm-3 text-muted">Check-out</dt>
+        <dd class="col-sm-9 fw-semibold">{{ booking.checkout }}</dd>
+
+        <dt class="col-sm-3 text-muted">Status</dt>
+        <dd class="col-sm-9">
+          <span class="badge 
+            {% if booking.status == 'confirmed' %} bg-success 
+            {% elif booking.status == 'cancelled' %} bg-danger 
+            {% else %} bg-warning text-dark {% endif %}">
+            {{ booking.status|capitalize }}
+          </span>
+        </dd>
+
+        <dt class="col-sm-3 text-muted">Created</dt>
+        <dd class="col-sm-9 fw-semibold">{{ booking.created_at }}</dd>
+      </dl>
+
+      <hr>
+
+      <form method="post" action="{{ url_for('admin_change_status', booking_id=booking.id) }}">
+        <div class="mb-3">
+          <label for="status" class="form-label fw-bold">Change Status</label>
+          <select id="status" name="status" class="form-select">
+            <option value="pending" {% if booking.status == 'pending' %}selected{% endif %}>Pending</option>
+            <option value="confirmed" {% if booking.status == 'confirmed' %}selected{% endif %}>Confirmed</option>
+            <option value="cancelled" {% if booking.status == 'cancelled' %}selected{% endif %}>Cancelled</option>
+          </select>
+        </div>
+
+        <div id="reason-group" class="mb-3" style="display: none;">
+          <label for="reason" class="form-label fw-bold">Cancellation Reason (optional)</label>
+          <textarea id="reason" name="reason" rows="3" class="form-control" 
+            placeholder="Explain why this booking was cancelled...">{{ booking.cancellation_reason or '' }}</textarea>
+        </div>
+
+        <div class="d-flex gap-2">
+          <button type="submit" class="btn btn-primary">
+            <i class="bi bi-check-circle"></i> Update Status
+          </button>
+          <a href="{{ url_for('admin_dashboard') }}" class="btn btn-secondary">
+            <i class="bi bi-arrow-left"></i> Back
+          </a>
+        </div>
+      </form>
+
+      <hr>
+
+      <form method="post" action="{{ url_for('admin_delete_booking', booking_id=booking.id) }}"
+        onsubmit="return confirm('Are you sure you want to delete this booking? This action cannot be undone.');">
+        <button class="btn btn-outline-danger w-100">
+          <i class="bi bi-trash"></i> Delete Booking
+        </button>
+      </form>
+    </div>
+  </div>
+</div>
+
+<!-- Optional script to toggle reason box -->
+<script>
+  document.addEventListener("DOMContentLoaded", function () {
+    const statusSelect = document.getElementById("status");
+    const reasonGroup = document.getElementById("reason-group");
+
+    function toggleReasonBox() {
+      if (statusSelect.value === "cancelled") {
+        reasonGroup.style.display = "block";
+      } else {
+        reasonGroup.style.display = "none";
+      }
+    }
+
+    statusSelect.addEventListener("change", toggleReasonBox);
+    toggleReasonBox();
+  });
+</script>
+{% endblock %}
